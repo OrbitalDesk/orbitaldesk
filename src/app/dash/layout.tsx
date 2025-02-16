@@ -2,7 +2,7 @@
 import { Inter } from 'next/font/google';
 import '../globals.css';
 
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import DashPage from './page';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
@@ -24,9 +24,8 @@ const inter = Inter({
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [activeButton, setActiveButton] = useState(1);
-  const router = useRouter();
 
-  const { pathname } = router;
+  const pathname = usePathname();
 
   const isMainDashboardPage = pathname === '/dash';
 
