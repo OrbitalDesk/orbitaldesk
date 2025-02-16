@@ -38,7 +38,6 @@ import {
 
 import SettingsAlertComponent from '@/components/settingsAlert';
 
-
 // Menu items.
 const sidebarItems = [
   {
