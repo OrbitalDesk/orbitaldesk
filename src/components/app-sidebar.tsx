@@ -67,13 +67,13 @@ const sidebarItems = [
   },
 ];
 
-const account = {
+const account2 = {
   name: 'shadcn',
   role: 'admin',
   email: 'm@example.com',
   avatar: '/avatars/shadcn.jpg',
 };
-const account2 = {
+const account = {
   name: 'zwergtuete',
   role: 'admin',
   email: 'zwergtuete@outlook.com',

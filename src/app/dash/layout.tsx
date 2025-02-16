@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
 
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 
 const inter = Inter({
@@ -18,15 +18,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.className}>
-      <body>
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="min-h-screen w-full">
-            {/* <SidebarTrigger className="absolute top-0 left-0 z-50" /> */}
-            {children}
-          </main>
-        </SidebarProvider>
-      </body>
+      <body className="grid grid-cols-[]"></body>
     </html>
   );
 }
