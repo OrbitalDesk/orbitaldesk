@@ -38,6 +38,7 @@ import {
 
 import SettingsAlertComponent from '@/components/settingsAlert';
 
+
 // Menu items.
 const sidebarItems = [
   {
@@ -86,6 +87,9 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
+        <div className="border-b h-[65px] flex items-center justify-center">
+          <Image src={'/logo_banner_lightMode.png'} alt="logo_banner" width={157} height={40} />
+        </div>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
