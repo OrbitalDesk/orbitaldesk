@@ -37,7 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SidebarProvider>
           <AppSidebar />
           <main className="min-h-screen w-full">
-            <div className="flex gap-4 w-full col-span-full h-[65px] items-center p-4 border-b fixed top-0 bg-white">
+            <div className="flex gap-4 w-full col-span-full h-[65px] items-center p-4 border-b fixed top-0 bg-sidebar">
               <Button variant={activeButton === 1 ? 'outline' : 'ghost'} onClick={() => setActiveButton(1)}>
                 <LayoutDashboard /> Overview
               </Button>

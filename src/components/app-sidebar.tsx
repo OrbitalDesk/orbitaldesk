@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Check, ChevronsUpDown, Calendar, Home, Inbox, Search, Settings, LogOut } from 'lucide-react';
+import { Check, ChevronsUpDown, Calendar, Home, Inbox, Search, Settings, LogOut, ShoppingCart, LayoutDashboard, Logs } from 'lucide-react';
 import Image from 'next/image';
 
 import {
@@ -42,28 +42,22 @@ import SettingsAlertComponent from '@/components/settingsAlert';
 const sidebarItems = [
   {
     title: 'Home',
-    url: '#',
+    url: '/dashboard',
     icon: Home,
   },
+];
+
+
+const sidebarItems_producs = [
   {
-    title: 'Inbox',
-    url: '#',
-    icon: Inbox,
+    title: 'Overview',
+    url: '/dashboard/products',
+    icon: LayoutDashboard,
   },
   {
-    title: 'Calendar',
+    title: 'Logs',
     url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
+    icon: Logs,
   },
 ];
 
@@ -89,8 +83,8 @@ export function AppSidebar() {
         <div className="border-b h-[65px] flex items-center justify-center">
           <Image src={'/logo_banner_lightMode.png'} alt="logo_banner" width={157} height={40} />
         </div>
+
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {sidebarItems.map((item) => (
@@ -106,27 +100,27 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
         <SidebarGroup>
-          <SidebarGroupLabel>Freelancer</SidebarGroupLabel>
+          <SidebarGroupLabel>Products</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuSub>
-                {sidebarItems.map((item) => (
-                  <SidebarMenuSubItem key={item.title}>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
-                        <a href={item.url}>
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenuSubItem>
+              <SidebarMenuSub className='ml-2'>
+                {sidebarItems_producs.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 ))}
               </SidebarMenuSub>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
       </SidebarContent>
       <SidebarFooter>
         <Popover open={open} onOpenChange={setOpen}>
