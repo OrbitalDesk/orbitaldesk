@@ -1,4 +1,4 @@
-import DashboardPage from '@/components/dashboardPage';
+import DashboardPage from '@/components/dashboardPages/mainDashboardPage';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const information = {

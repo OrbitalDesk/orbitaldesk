@@ -2,10 +2,10 @@
 import { Package, LayoutDashboard, DollarSign, ShoppingCart, Star } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function DashboardPage(props: { id: number; data: { products: number; revenue: string; orders: number, feedback: number } }) {
+export default function DashboardPage(props: { id: number; data: { products: number; revenue: string; orders: number; feedback: number } }) {
   if (props.id === 1) {
     return (
-      <main className="grid grid-cols-12 w-full p-8 grid-rows-[auto_1fr] h-[2000px] mt-[65px] gap-y-2">
+      <main className="grid grid-cols-12 w-full p-8 grid-rows-[auto_1fr] mt-[65px] gap-y-2">
         <div className="col-span-full">
           <h1 className="text-3xl font-bold">Overview</h1>
           <p className="text-gray-500">Monitor and manage your account</p>
@@ -68,7 +68,9 @@ export default function DashboardPage(props: { id: number; data: { products: num
               </div>
               <div>
                 <p className="text-lg text-gray-600 font-medium">Feedback</p>
-                <h3 className="font-bold text-2xl flex items-center gap-2">{props.data.feedback} / 5 <Star size={20} /></h3>
+                <h3 className="font-bold text-2xl flex items-center gap-2">
+                  {props.data.feedback} / 5 <Star size={20} />
+                </h3>
               </div>
             </CardContent>
             <CardFooter className="bg-gray-200 rounded-b-lg flex justify-center py-2">

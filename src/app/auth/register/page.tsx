@@ -1,13 +1,69 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+'use client';
+
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 import Image from 'next/image';
 
 import { Eye, EyeOff } from 'lucide-react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const formSchema = z.object({
+  firstName: z
+    .string()
+    .min(2)
+    .max(50)
+    .regex(/^[a-zA-Z\s]+$/),
+  lastName: z
+    .string()
+    .min(2)
+    .max(50)
+    .regex(/^[a-zA-Z\s]+$/),
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(8)
+    .max(50)
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    .refine((val) => val, {
+      message: 'Not valid Password',
+    }),
+  acceptToS: z
+    .boolean()
+    .refine((val) => val, {
+      message: 'You need to accept the Terms of Service.',
+    })
+    .default(false),
+});
 export default function page() {
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      acceptToS: false,
+    },
+  });
+
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
+
   return (
     <main className="flex justify-center items-center h-screen">
       <div className="w-[600px] h-[550px] border rounded-lg p-[100px] flex flex-col justify-center gap-6">
@@ -20,26 +76,88 @@ export default function page() {
             </a>
           </p>
         </div>
-        <div className="flex flex-col justify-center items-center gap-6">
-          <div className="w-[400px] flex flex-col gap-2">
-            <div className="flex gap-2">
-              <Input className="h-10 placeholder:text-sm" placeholder="First Name" />
-              <Input className="h-10 placeholder:text-sm" placeholder="Last Name" />
-            </div>
-            <Input className="h-10 placeholder:text-sm" placeholder="Email" />
-            <Input className="h-10 placeholder:text-sm" type="password" placeholder="Enter your password" />
-          </div>
-        </div>
 
-        <div className="items-top flex space-x-2 justify-start">
-          <Checkbox id="terms1" />
-          <div className="grid gap-1.5 leading-none">
-            <label htmlFor="terms1" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              I agree to the terms and conditions
-            </label>
-          </div>
-        </div>
-        <Button>Login</Button>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-center items-center gap-6">
+            <div className="w-[400px] flex flex-col gap-2">
+              <div className="flex gap-2">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="h-10">
+                        <FormControl>
+                          <Input placeholder="First Name" {...field} className="text-sm" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="h-10">
+                        <FormControl>
+                          <Input placeholder="Last Name" {...field} className="text-sm" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => {
+                  return (
+                    <FormItem className="h-10">
+                      <FormControl>
+                        <Input placeholder="Email" {...field} className="text-sm" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => {
+                  return (
+                    <FormItem className="h-10">
+                      <FormControl>
+                        <Input placeholder="Enter your password" type="password" {...field} className="text-sm" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="acceptToS"
+              render={({ field }) => (
+                <FormItem className="items-top flex space-x-2 justify-start">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <div className="grid gap-1.5 leading-none justify-center m-0">
+                    <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                      I agree to the terms and conditions
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
 
         <div className="flex gap-4 justify-center">
           <Separator className="w-1/3 self-center" />

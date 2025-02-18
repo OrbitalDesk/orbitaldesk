@@ -1,11 +1,9 @@
 'use client';
-import '../globals.css';
+import '@/app/globals.css';
 
 import { usePathname } from 'next/navigation';
 import DashPage from './page';
 
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
 import { Button } from '@/components/ui/button';
 
 import { Package, LayoutDashboard, ShoppingCart } from 'lucide-react';
@@ -33,18 +31,24 @@ const buttons = (activeButton: number, setActiveButton: React.Dispatch<React.Set
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html>
-      <body>
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="min-h-screen w-full">
-            <div className="flex gap-4 w-full col-span-full h-[65px] items-center p-4 border-b fixed top-0 bg-sidebar"></div>
+  const [activeButton, setActiveButton] = useState(1);
 
-            {children}
-          </main>
-        </SidebarProvider>
-      </body>
-    </html>
+  const pathname = usePathname();
+
+  const isFreelancerDashboardPage = pathname === '/dashboard/freelancer';
+  const freelancerDashboardPageProps = { id: activeButton };
+
+  return (
+    <main>
+      <main className="min-h-screen w-full">
+        <div className="flex gap-4 w-full col-span-full h-[65px] items-center p-4 border-b fixed top-0 bg-sidebar">
+          {isFreelancerDashboardPage && buttons(activeButton, setActiveButton)}
+        </div>
+
+        {isFreelancerDashboardPage && <DashPage {...freelancerDashboardPageProps} />}
+
+        {children}
+      </main>
+    </main>
   );
 }

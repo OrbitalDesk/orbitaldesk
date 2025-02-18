@@ -47,11 +47,10 @@ const sidebarItems = [
   },
 ];
 
-
-const sidebarItems_producs = [
+const sidebarItems_freelancer = [
   {
     title: 'Overview',
-    url: '/dashboard/products',
+    url: '/dashboard/freelancer',
     icon: LayoutDashboard,
   },
   {
@@ -102,11 +101,11 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Products</SidebarGroupLabel>
+          <SidebarGroupLabel>Freelancer</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuSub className='ml-2'>
-                {sidebarItems_producs.map((item) => (
+              <SidebarMenuSub className="ml-2">
+                {sidebarItems_freelancer.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <a href={item.url}>
@@ -120,7 +119,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
       </SidebarContent>
       <SidebarFooter>
         <Popover open={open} onOpenChange={setOpen}>
